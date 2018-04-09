@@ -11,7 +11,7 @@ public class BaseState implements State {
 	private boolean state = false;
 	private String info = null;
 	
-	private Map<String, String> infoMap = new HashMap<String, String>();
+	private Map<String, String> infoMap = new HashMap<>();
 	
 	public BaseState () {
 		this.state = true;

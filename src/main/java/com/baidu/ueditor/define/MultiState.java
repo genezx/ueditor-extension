@@ -18,9 +18,9 @@ public class MultiState implements State {
 
 	private boolean state = false;
 	private String info = null;
-	private Map<String, Long> intMap = new HashMap<String, Long>();
-	private Map<String, String> infoMap = new HashMap<String, String>();
-	private List<String> stateList = new ArrayList<String>();
+	private Map<String, Long> intMap = new HashMap<>();
+	private Map<String, String> infoMap = new HashMap<>();
+	private List<String> stateList = new ArrayList<>();
 	
 	public MultiState ( boolean state ) {
 		this.state = state;
