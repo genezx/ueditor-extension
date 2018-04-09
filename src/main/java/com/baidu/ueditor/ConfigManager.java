@@ -120,6 +120,8 @@ public final class ConfigManager {
 				conf.put( "maxSize", this.jsonConfig.getLong( "catcherMaxSize" ) );
 				conf.put( "allowFiles", this.getArray( "catcherAllowFiles" ) );
 				conf.put( "fieldName", this.jsonConfig.getString( "catcherFieldName" ) + "[]" );
+				conf.put( "proxyAddr", this.jsonConfig.getJSONArray( "catcherProxy" ).get(0) );	//zx追加
+				conf.put( "proxyPort", this.jsonConfig.getJSONArray( "catcherProxy" ).get(1) );	//zx追加
 				savePath = this.jsonConfig.getString( "catcherPathFormat" );
 				break;
 

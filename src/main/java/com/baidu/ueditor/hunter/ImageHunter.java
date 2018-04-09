@@ -1,6 +1,8 @@
 package com.baidu.ueditor.hunter;
 
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +28,8 @@ public class ImageHunter {
 	private String rootPath = null;
 	private List<String> allowTypes = null;
 	private long maxSize = -1;
+	private String proxyAddr = null;
+	private int proxyPort = 0;
 
 	private List<String> filters = null;
 
@@ -39,6 +43,9 @@ public class ImageHunter {
 		if (this.rootPath == null || this.rootPath.isEmpty()) {
 			this.rootPath = (String)conf.get("rootPath");
 		}
+		/*************zx修改：增加代理服务器设置*************/
+		this.proxyAddr = (String)conf.get("proxyAddr");
+		this.proxyPort = (int)conf.get("proxyPort");
 		/**************************/
 		this.maxSize = (Long)conf.get( "maxSize" );
 		this.allowTypes = Arrays.asList( (String[])conf.get( "allowFiles" ) );
@@ -71,7 +78,15 @@ public class ImageHunter {
 				return new BaseState( false, AppInfo.PREVENT_HOST );
 			}
 
-			connection = (HttpURLConnection) url.openConnection();
+			//connection = (HttpURLConnection) url.openConnection();
+			/*************zx修改：增加代理服务器设置*************/
+			if (this.proxyAddr == null || this.proxyAddr.isEmpty()) {
+				connection = (HttpURLConnection) url.openConnection();
+			} else {
+				Proxy proxy = new Proxy(Proxy.Type.SOCKS, new InetSocketAddress(this.proxyAddr, this.proxyPort));
+				connection = (HttpURLConnection) url.openConnection(proxy);
+			}
+			/**************************/
 
 			connection.setInstanceFollowRedirects( true );
 			connection.setUseCaches( true );
